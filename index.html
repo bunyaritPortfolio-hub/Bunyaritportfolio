@@ -11,7 +11,7 @@
     <!-- Google Fonts: Plus Jakarta Sans & Kanit -->
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', 'Kanit', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', 'Kanit', sans-serif; cursor: default; }
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
@@ -22,17 +22,27 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        /* ซ่อน Scrollbar ของสไลเดอร์แบบเนียนๆ */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Custom Cursor Style */
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ef4444;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease-out, background-color 0.15s ease-out;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
-<body class="bg-black text-gray-200 antialiased selection:bg-red-500 selection:text-white">
+<body class="bg-black text-gray-200 antialiased selection:bg-red-500 selection:text-white relative">
+
+    <!-- Custom Cursor Effect -->
+    <div id="cursor" class="custom-cursor hidden md:block"></div>
 
     <!-- NAVBAR -->
     <nav class="fixed top-0 left-0 right-0 z-50 glass-card px-6 py-4 flex justify-between items-center bg-black/80">
@@ -84,7 +94,7 @@
                 </p>
                 
                 <h3 class="text-lg font-semibold text-white mb-3">Skills & Expertise</h3>
-                <div class="flex flex-wrap gap-2">
+                <div class="flex flex-wrap gap-2 mb-6">
                     <span class="px-3 py-1 bg-gray-900 border border-gray-800 rounded-full text-xs text-gray-300">Filmmaking</span>
                     <span class="px-3 py-1 bg-gray-900 border border-gray-800 rounded-full text-xs text-gray-300">Video Editing</span>
                     <span class="px-3 py-1 bg-gray-900 border border-gray-800 rounded-full text-xs text-gray-300">Photography</span>
@@ -93,18 +103,22 @@
                     <span class="px-3 py-1 bg-gray-900 border border-gray-800 rounded-full text-xs text-gray-300">AI Prompting</span>
                     <span class="px-3 py-1 bg-gray-900 border border-gray-800 rounded-full text-xs text-gray-300">Camera Operation</span>
                 </div>
+
+                <!-- ปุ่ม Download Resume -->
+                <a href="#" onclick="alert('กรุณาอัปโหลดไฟล์ Resume PDF ของคุณขึ้น GitHub แล้วนำลิงก์มาวาง')" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-red-500/50 hover:bg-red-600 text-white font-medium text-sm transition">
+                    <i class="fa-solid fa-file-arrow-down"></i> Download Resume (PDF)
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- VIDEO SHOWCASE (CAROUSEL / SLIDER) -->
+    <!-- VIDEO SHOWCASE (CAROUSEL SLIDER) -->
     <section id="videos" class="py-20 px-6 max-w-7xl mx-auto">
         <div class="flex justify-between items-end mb-8">
             <div>
                 <h2 class="text-3xl font-bold text-white mb-2">Featured <span class="text-red-500">Films & Videos</span></h2>
                 <p class="text-gray-400 text-sm">เลื่อนซ้าย-ขวา เพื่อรับชมผลงานวิดีโอทั้งหมด</p>
             </div>
-            <!-- ปุ่มกดเลื่อน สไลเดอร์ -->
             <div class="flex gap-2">
                 <button onclick="scrollSlider(-400)" class="w-10 h-10 rounded-full glass-card hover:bg-red-600 hover:text-white transition flex items-center justify-center">
                     <i class="fa-solid fa-chevron-left"></i>
@@ -115,7 +129,6 @@
             </div>
         </div>
 
-        <!-- ตัวสไลเดอร์วิดีโอ -->
         <div id="video-slider" class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-4">
             
             <!-- Video 1: Que sera sera -->
@@ -205,7 +218,6 @@
             </div>
         </div>
 
-        <!-- Project Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="portfolio-item film glass-card rounded-xl overflow-hidden group hover:border-red-500/50 transition duration-300">
                 <div class="h-48 bg-gray-900 relative flex items-center justify-center">
@@ -302,13 +314,32 @@
 
     <!-- SCRIPTS -->
     <script>
-        // ฟังก์ชันสไลเดอร์เลื่อนคลิปวิดีโอ
+        // Custom Cursor Movement
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Custom Cursor Hover Effect
+        document.querySelectorAll('a, button').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+                cursor.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+            });
+            item.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursor.style.backgroundColor = 'transparent';
+            });
+        });
+
+        // Slider Scroll
         function scrollSlider(amount) {
             const slider = document.getElementById('video-slider');
             slider.scrollBy({ left: amount, behavior: 'smooth' });
         }
 
-        // ฟังก์ชันกรองหมวดหมู่
+        // Filter Portfolio
         function filterPortfolio(category) {
             const items = document.querySelectorAll('.portfolio-item');
             const buttons = document.querySelectorAll('.filter-btn');
