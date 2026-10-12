@@ -18,7 +18,6 @@
 </head>
 <body class="bg-black text-gray-200 min-h-screen px-6 py-12">
     <div class="max-w-6xl mx-auto">
-        <!-- ปุ่มย้อนกลับหน้าหลัก -->
         <a href="index.html" class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-red-500 mb-8 transition">
             <i class="fa-solid fa-arrow-left"></i> กลับสู่หน้าหลัก
         </a>
@@ -39,10 +38,7 @@
             <button onclick="filterBTS('motion-work')" class="bts-btn px-5 py-2 rounded-full text-xs font-medium glass-card hover:bg-gray-800 transition">🎨 โมชั่น กราฟฟิก</button>
         </div>
 
-        <!-- รายการ BTS Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <!-- Category 1: ออกกอง -->
             <div class="bts-item film-set glass-card p-5 rounded-2xl border border-gray-800">
                 <div class="w-full h-48 bg-gray-900 rounded-xl mb-4 flex items-center justify-center text-amber-500/50">
                     <i class="fa-solid fa-film text-5xl"></i>
@@ -52,7 +48,6 @@
                 <p class="text-xs text-gray-400 mt-2">การตั้งกล้อง จัดแสง บันทึกเสียง และการคุมธีมงานในกองถ่ายทำภาพยนตร์สั้น</p>
             </div>
 
-            <!-- Category 2: ตั้งบูธอีเว้นท์ถ่ายรูป -->
             <div class="bts-item booth glass-card p-5 rounded-2xl border border-gray-800">
                 <div class="w-full h-48 bg-gray-900 rounded-xl mb-4 flex items-center justify-center text-amber-500/50">
                     <i class="fa-solid fa-store text-5xl"></i>
@@ -62,7 +57,6 @@
                 <p class="text-xs text-gray-400 mt-2">จัดเซตติ้งฉาก แสงไฟสปอตไลต์ และระบบถ่ายภาพที่บูธอีเวนต์กิจกรรมต่างๆ</p>
             </div>
 
-            <!-- Category 3: ถ่ายรูป -->
             <div class="bts-item photo-session glass-card p-5 rounded-2xl border border-gray-800">
                 <div class="w-full h-48 bg-gray-900 rounded-xl mb-4 flex items-center justify-center text-amber-500/50">
                     <i class="fa-solid fa-camera text-5xl"></i>
@@ -72,7 +66,6 @@
                 <p class="text-xs text-gray-400 mt-2">การจัดท่าทาง กำกับอารมณ์แบบ และการใช้อุปกรณ์ Panasonic Lumix G95 & Osmo Pocket 3</p>
             </div>
 
-            <!-- Category 4: ตัดต่อ -->
             <div class="bts-item editing glass-card p-5 rounded-2xl border border-gray-800">
                 <div class="w-full h-48 bg-gray-900 rounded-xl mb-4 flex items-center justify-center text-amber-500/50">
                     <i class="fa-solid fa-scissors text-5xl"></i>
@@ -82,7 +75,6 @@
                 <p class="text-xs text-gray-400 mt-2">การเรียง Timeline การตัดต่อจังหวะภาพ การเกรดสี (Color Grading) และ Sound Design</p>
             </div>
 
-            <!-- Category 5: โมชั่น กราฟฟิก -->
             <div class="bts-item motion-work glass-card p-5 rounded-2xl border border-gray-800">
                 <div class="w-full h-48 bg-gray-900 rounded-xl mb-4 flex items-center justify-center text-amber-500/50">
                     <i class="fa-solid fa-cubes text-5xl"></i>
@@ -91,7 +83,6 @@
                 <h3 class="text-lg font-bold text-white mt-1">ขั้นตอนการทำ Motion & Design</h3>
                 <p class="text-xs text-gray-400 mt-2">การวาง Storyboard ร่างแบบกราฟฟิก และการใส่ Keyframe ทำแอนิเมชันเคลื่อนไหว</p>
             </div>
-
         </div>
     </div>
 
@@ -99,9 +90,7 @@
         function filterBTS(category) {
             const items = document.querySelectorAll('.bts-item');
             const buttons = document.querySelectorAll('.bts-btn');
-
             buttons.forEach(btn => btn.classList.remove('bg-amber-500', 'text-black'));
-            
             items.forEach(item => {
                 if (category === 'all' || item.classList.contains(category)) {
                     item.style.display = 'block';
